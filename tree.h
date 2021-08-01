@@ -9,17 +9,9 @@
 
 #ifndef ERROR_CHECK
 # define ERROR_CHECK
-void	error_exit(const char *error)
-{
-	write(2, error, strlen(error));
-	exit(1);
-}
 
-void 	check_buf_fatal(void *buf)
-{
-	if (!buf)
-		error_exit("Fatal error: malloc\n");
-}
+void	error_exit(const char *error);
+void 	check_buf_fatal(void *buf);
 
 #endif
 
