@@ -1,5 +1,5 @@
 NAME=libtree.a
-SRC=init.c insert.c compare_values.c
+SRC=init.c insert.c compare_values.c error.c
 HEADER=tree.h
 OBJ=$(SRC:.c=.o)
 

@@ -6,15 +6,6 @@
 # include <unistd.h>
 # include <sys/socket.h>
 # include <stdio.h>
-
-#ifndef ERROR_CHECK
-# define ERROR_CHECK
-
-void	error_exit(const char *error);
-void 	check_buf_fatal(void *buf);
-
-#endif
-
 #define LONG	1
 #define STRING	2
 
@@ -29,5 +20,8 @@ typedef struct	s_tree
 t_tree	*tree_init( t_tree *top, t_tree *left, t_tree *right, void *value );
 int 	tree_compare_values(t_tree *existing, void *value, int mask);
 void	tree_insert( t_tree **top, void *new_node_value, int mask );
+void	error_exit(const char *error);
+void 	check_buf_fatal(void *buf);
+
 
 #endif //TREES_LIBRARY_H
