@@ -15,42 +15,56 @@
 // 31.07.2021⠀⠀⠀⠀
 //
 #include "tree.h"
-static void inserter( t_tree **top, void *new_node_value, int mask );
 
-static void node_selector(t_tree **node, void *new_node_value, int mask)
+static void inserter( t_tree *top, long new_number, pthread_mutex_t *mutex_left, pthread_mutex_t *mutex_right)
 {
-	if (!(*node))
+//	(void)mutex_right;
+//	(void )mutex_left;
+	if (top->number == new_number)
 	{
-		*node = tree_init(*node, NULL, NULL, new_node_value);
-		return ;
+		//compare and update data;
+		fprintf(stderr, "%ld\n", new_number);
+		return;
+	}
+	else if (top->number > new_number)
+	{
+		pthread_mutex_lock(mutex_left);
+		if (top->left)
+		{
+			pthread_mutex_unlock(mutex_left);
+			inserter(top->left, new_number, mutex_left, mutex_right);
+		}
+		else
+		{
+			top->left = tree_init(top, NULL, NULL, new_number);
+		}
+		pthread_mutex_unlock(mutex_left);
 	}
 	else
-		inserter( node, new_node_value, mask );
-}
-
-static void inserter( t_tree **top, void *new_node_value, int mask )
-{
-	int compare;
-
-	compare = tree_compare_values(*top, new_node_value, mask);
-	if (compare == -1)
 	{
-		if (mask == LONG)
-			dprintf(2, "%d\n", *((int *)new_node_value));
-		else if (mask == STRING)
-			dprintf(2, "%s\n", ((char *)new_node_value));
-		return ;
+		pthread_mutex_lock(mutex_right);
+		if (top->right)
+		{
+			pthread_mutex_unlock(mutex_right);
+			inserter(top->right, new_number, mutex_left, mutex_right);
+		}
+		else
+		{
+			top->right = tree_init(top, NULL, NULL, new_number);
+		}
+		pthread_mutex_unlock(mutex_right);
 	}
-	else if (compare == 1)
-		node_selector(&(*top)->left, new_node_value, mask);
-	else if (!compare)
-		node_selector(&(*top)->right, new_node_value, mask);
 }
 
-void	tree_insert( t_tree **top, void *new_node_value, int mask )
+void	tree_insert( t_tree **top, long new_number, pthread_mutex_t *mutex_left, pthread_mutex_t *mutex_right)
 {
 	//checking 1th value before recursion
+	pthread_mutex_lock(mutex_left);
 	if (!(*top))
-		*top = tree_init(NULL, NULL, NULL, new_node_value);
-	inserter( top, new_node_value, mask );
+	{
+		*top = tree_init(NULL, NULL, NULL, new_number);
+		return;
+	}
+	pthread_mutex_unlock(mutex_left);
+	inserter(*top, new_number, mutex_left, mutex_right);
 }

@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-t_tree	*tree_init( t_tree *top, t_tree *left, t_tree *right, void *value )
+t_tree	*tree_init( t_tree *top, t_tree *left, t_tree *right, long new_number )
 {
 	t_tree	*new_node;
 
@@ -11,6 +11,6 @@ t_tree	*tree_init( t_tree *top, t_tree *left, t_tree *right, void *value )
 	new_node->right = right;
 	new_node->left = left;
 	new_node->top = top;
-	new_node->value = value;
+	new_node->number = new_number;
 	return (new_node);
 }

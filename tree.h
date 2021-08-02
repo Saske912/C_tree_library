@@ -6,20 +6,18 @@
 # include <unistd.h>
 # include <sys/socket.h>
 # include <stdio.h>
-#define LONG	1
-#define STRING	2
+# include <pthread.h>
 
 typedef struct	s_tree
 {
 	struct s_tree	*top;
 	struct s_tree	*left;
 	struct s_tree	*right;
-	void 			*value;
+	long 			number;
 }				t_tree;
 
-t_tree	*tree_init( t_tree *top, t_tree *left, t_tree *right, void *value );
-int 	tree_compare_values(t_tree *existing, void *value, int mask);
-void	tree_insert( t_tree **top, void *new_node_value, int mask );
+t_tree	*tree_init( t_tree *top, t_tree *left, t_tree *right, long new_number );
+void	tree_insert( t_tree **top, long new_number, pthread_mutex_t *mutex_left, pthread_mutex_t *mutex_right);
 void	error_exit(const char *error);
 void 	check_buf_fatal(void *buf);
 
