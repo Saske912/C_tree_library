@@ -2,6 +2,21 @@
 
 #include <stdio.h>
 
+t_mutexes	*init_mutexes() {
+	t_mutexes	*mutexes;
+
+	mutexes = (t_mutexes *) calloc(sizeof(t_mutexes), 2);
+	if (!mutexes) {
+		perror("error: ");
+		return NULL;
+	}
+	pthread_mutex_init(&mutexes->extract, NULL);
+	pthread_mutex_init(&mutexes->top, NULL);
+	pthread_mutex_init(&mutexes->left, NULL);
+	pthread_mutex_init(&mutexes->right, NULL);
+	return mutexes;
+}
+
 t_tree	*tree_init( t_tree *top, t_tree *left, t_tree *right, long new_number )
 {
 	t_tree	*new_node;
