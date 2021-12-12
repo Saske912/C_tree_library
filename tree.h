@@ -8,7 +8,7 @@
 # include <stdio.h>
 # include <pthread.h>
 # include <fcntl.h>
-# include "../get_next_line/get_next_line.h"
+# include "get_next_line/get_next_line.h"
 # define NUM_THREADS 16
 
 typedef struct	s_tree

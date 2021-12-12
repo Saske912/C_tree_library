@@ -1,5 +1,5 @@
 NAME=libtree.a
-SRC=init.c insert.c error.c find.c
+SRC=init.c insert.c error.c find.c destroy.c tree_file.c
 HEADER=tree.h
 OBJ=$(SRC:.c=.o)
 
