@@ -68,7 +68,7 @@ static void inserter( t_tree *top, long new_number, pthread_mutex_t *mutex_left,
 	}
 }
 
-void	tree_insert( t_tree **top, long new_number, pthread_mutex_t *mutex_left, \
+void	tree_insert_threads( t_tree **top, long new_number, pthread_mutex_t *mutex_left, \
 pthread_mutex_t *mutex_right, pthread_mutex_t *center_mutex)
 {
 	//checking 1th value before recursion
@@ -84,4 +84,36 @@ pthread_mutex_t *mutex_right, pthread_mutex_t *center_mutex)
 		pthread_mutex_unlock(center_mutex);
 	}
 	inserter(*top, new_number, mutex_left, mutex_right);
+}
+
+int 	tree_insert(t_tree **top, long new_number) {
+	t_tree	*temp;
+
+	if (!(*top))
+	{
+		*top = tree_init (NULL, NULL, NULL, new_number);
+		return (0);
+	}
+	temp = *top;
+	while (1)
+	{
+		if (temp->number > new_number)
+			if (temp->left) {
+				temp = temp->left;
+			} else {
+				temp->left = tree_init (NULL, NULL, NULL, new_number);
+				return (0);
+			}
+		else if (temp->number == new_number) {
+			return (-1);
+		}
+		else {
+			if (temp->right) {
+				temp = temp->right;
+			} else {
+				temp->right = tree_init (NULL, NULL, NULL, new_number);
+				return (0);
+			}
+		}
+	}
 }

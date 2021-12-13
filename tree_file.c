@@ -30,8 +30,8 @@ void			*work_in_thread(void *params) {
 			number = atol(buffer);
 			free(buffer);
 			if (number) {
-				tree_insert(threads->file_in_memory, number, &threads->mutexes->left,
-						&threads->mutexes->right, &threads->mutexes->top);
+				tree_insert_threads(threads->file_in_memory, number, &threads->mutexes->left, &threads->mutexes->right,
+						&threads->mutexes->top);
 			}
 		} else {
 			pthread_mutex_unlock(&threads->mutexes->extract);

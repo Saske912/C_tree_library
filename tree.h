@@ -38,7 +38,7 @@ extern "C"{
 #endif
 
 t_tree		*tree_init( t_tree *top, t_tree *left, t_tree *right, long new_number );
-void		tree_insert( t_tree **top, long new_number, pthread_mutex_t *mutex_left, \
+void		tree_insert_threads( t_tree **top, long new_number, pthread_mutex_t *mutex_left, \
 pthread_mutex_t *mutex_right, pthread_mutex_t *center_mutex);
 void		error_exit(const char *error);
 void 		check_buf_fatal(void *buf);
@@ -49,6 +49,7 @@ void		free_tree(t_tree **tree);
 t_mutexes	*init_mutexes();
 void		destroy_mutexes(t_mutexes *mutexes);
 t_tree		*tree_file(char *arg);
+int 		tree_insert(t_tree **top, long new_number);
 
 #ifdef __cplusplus
 }
