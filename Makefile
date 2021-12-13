@@ -1,6 +1,6 @@
 NAME=libtree.a
 SRC=init.c insert.c error.c find.c destroy.c tree_file.c \
-	get_next_line.c get_next_line_utils.c
+	get_next_line.c get_next_line_utils.c free.c
 HEADER=tree.h
 OBJ=$(SRC:.c=.o)
 

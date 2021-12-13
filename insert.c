@@ -101,7 +101,7 @@ int 	tree_insert(t_tree **top, long new_number) {
 			if (temp->left) {
 				temp = temp->left;
 			} else {
-				temp->left = tree_init (NULL, NULL, NULL, new_number);
+				temp->left = tree_init (temp, NULL, NULL, new_number);
 				return (0);
 			}
 		else if (temp->number == new_number) {
@@ -111,7 +111,7 @@ int 	tree_insert(t_tree **top, long new_number) {
 			if (temp->right) {
 				temp = temp->right;
 			} else {
-				temp->right = tree_init (NULL, NULL, NULL, new_number);
+				temp->right = tree_init (temp, NULL, NULL, new_number);
 				return (0);
 			}
 		}
